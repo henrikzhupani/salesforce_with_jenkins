@@ -21,7 +21,7 @@ pipeline {
                     def deployResult = sh(
                         script: """
                             sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} \
-                            --jwtkeyfile \${JENKINS_HOME}/secrets/${JWT_KEY_CRED_ID}.key \
+                            --jwtkeyfile server.key \
                             --username ${HUB_ORG} \
                             --instanceurl ${SFDC_HOST} \
                             --setdefaultdevhubusername \
