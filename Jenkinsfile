@@ -6,6 +6,8 @@ pipeline {
         SFDC_HOST = 'https://login.salesforce.com'
         JWT_KEY_CRED_ID = 'ce113bda-5be4-45c6-9f1b-2dc564dcc235'
         CONNECTED_APP_CONSUMER_KEY = '3MVG97srI77Z1g7.i7q8BcJvLjplnAfz9UZfwT..PPAjqEGi5ZsYbc3GiLGSXwQvTXfp8BKbbIvD5hqmlHC.T'
+        SOURCE_DIRECTORY = 'C:\\Users\\Henrik Zhupani\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\jenkinsSalesfoce1_\\scripts\\apex'
+
     }
 
     stages {
@@ -39,7 +41,7 @@ pipeline {
                 script {
                     def deployResult = bat(
                         script: """
-                            sfdx force:source:deploy -p DeployPackage/src \
+                            sfdx force:source:deploy -p "${SOURCE_DIRECTORY}" \
                             -u DevPiu \
                             -w 10 \
                             --testlevel RunLocalTests
