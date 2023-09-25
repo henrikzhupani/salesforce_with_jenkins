@@ -2,9 +2,6 @@ pipeline {
     agent any
 
     environment {
-        BUILD_NUMBER = env.BUILD_NUMBER
-        RUN_ARTIFACT_DIR = "tests/${BUILD_NUMBER}"
-        SFDC_USERNAME
         HUB_ORG = 'jenkins.users@calmcoders.net'
         SFDC_HOST = 'https://login.salesforce.com'
         JWT_KEY_CRED_ID = 'da0cc199-1f65-476f-943d-56d1739a9b9e'
