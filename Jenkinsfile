@@ -12,7 +12,7 @@ node {
     def CONNECTED_APP_CONSUMER_KEY = '3MVG97srI77Z1g7.i7q8BcJvLjplnAfz9UZfwT..PPAjqEGi5ZsYbc3GiLGSXwQvTXfp8BKbbIvD5hqmlHC.T'
 
     stage('checkout source') {
-        sfdx force:mdapi:deploy -d DeployPackage/src -u "${HUB_ORG}" -w -1
+    
         checkout scm
     }
 
