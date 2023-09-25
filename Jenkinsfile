@@ -9,12 +9,6 @@ pipeline {
     }
 
     stages {
-        stage('checkout source') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Deploy to Salesforce') {
             steps {
                 script {
