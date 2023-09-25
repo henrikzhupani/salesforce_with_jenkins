@@ -25,7 +25,7 @@ pipeline {
                             --username ${HUB_ORG} \
                             --instanceurl ${SFDC_HOST} \
                             --setdefaultdevhubusername \
-                            --setaliasDevPiu
+                            --setalias DevPiu
                             sfdx force:source:deploy -p DeployPackage/src \
                             -u DevPiu \
                             -w <deployment-wait-time-in-minutes> \
