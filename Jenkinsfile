@@ -44,7 +44,7 @@ pipeline {
                             sfdx force:source:deploy -p "${SOURCE_DIRECTORY}" \
                             -u DevPiu \
                             -w 10 \
-                            --testlevel NoTestRun  # Skip tests
+                            --testlevel NoTestRun  
                         """,
                         returnStatus: true
                     )
