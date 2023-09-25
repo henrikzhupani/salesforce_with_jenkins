@@ -34,5 +34,24 @@ pipeline {
                 }
             }
         }
+         stage('Deploy to Salesforce22') {
+            steps {
+                script {
+                    def deployResult = bat(
+                        script: """
+                            sfdx force:source:deploy -p DeployPackage/src \
+                            -u DevPiu \
+                            -w 10 \
+                            --testlevel RunLocalTests
+                        """,
+                        returnStatus: true
+                    )
+
+                    if (deployResult != 0) {
+                        error("Salesforce deployment failed.")
+                    }
+                }
+            }
+        }
     }
 }
