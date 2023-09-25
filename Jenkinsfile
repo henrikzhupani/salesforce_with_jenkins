@@ -12,7 +12,7 @@ pipeline {
         stage('Deploy to Salesforce') {
             steps {
                 script {
-                    def deployResult = sh(
+                    def deployResult = bat(
                         script: """
                             sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} \
                             --jwtkeyfile server.key \
