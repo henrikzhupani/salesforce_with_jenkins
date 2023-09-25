@@ -21,5 +21,7 @@ node {
         checkout scm
     }
 
-    sfdx force:mdapi:deploy -d DeployPackage/src -u "jenkins.users@calmcoders.net" -w -1
+   
 }
+
+ sfdx force:mdapi:deploy -d DeployPackage/src -u "jenkins.users@calmcoders.net" -w -1
