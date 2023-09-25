@@ -55,5 +55,21 @@ pipeline {
                 }
             }
         }
+        stage('Run') {
+            steps {
+                script {
+                    def deployResult = bat(
+                        script: """
+                            sf run function 
+                        """,
+                        returnStatus: true
+                    )
+
+                    if (deployResult != 0) {
+                        error("Run failed.")
+                    }
+                }
+            }
+        }
     }
 }
