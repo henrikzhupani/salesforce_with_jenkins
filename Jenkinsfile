@@ -22,7 +22,7 @@ pipeline {
                             --setalias DevPiu
                             sfdx force:source:deploy -p DeployPackage/src \
                             -u DevPiu \
-                            -w <deployment-wait-time-in-minutes> \
+                            -w 10 \
                             --testlevel RunLocalTests
                         """,
                         returnStatus: true
