@@ -20,14 +20,14 @@ pipeline {
                 script {
                     def deployResult = sh(
                         script: """
-                            sudo sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} \
+                            sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} \
                             --jwtkeyfile server.key \
                             --username ${HUB_ORG} \
                             --instanceurl ${SFDC_HOST} \
                             --setdefaultdevhubusername \
-                            --setalias my-hub-org
-                            sudo sfdx force:source:deploy -p DeployPackage/src \
-                            -u my-hub-org \
+                            --setaliasDevPiu
+                            sfdx force:source:deploy -p DeployPackage/src \
+                            -u DevPiu \
                             -w <deployment-wait-time-in-minutes> \
                             --testlevel RunLocalTests
                         """,
