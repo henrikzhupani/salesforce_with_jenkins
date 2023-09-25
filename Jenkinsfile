@@ -15,13 +15,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                sh "chmod +x -R ${env.WORKSPACE}"
-         
-                }
-         }
-
         stage('Deploy to Salesforce') {
             steps {
                 script {
