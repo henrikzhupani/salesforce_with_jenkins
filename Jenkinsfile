@@ -22,10 +22,6 @@ pipeline {
                             --instanceurl ${SFDC_HOST} \
                             --setdefaultdevhubusername \
                             --setalias DevPiu
-                            sfdx force:source:deploy -p DeployPackage/src \
-                            -u DevPiu \
-                            -w 10 \
-                            --testlevel RunLocalTests
                         """,
                         returnStatus: true
                     )
