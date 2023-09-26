@@ -1,6 +1,6 @@
 public with sharing class HelloWorld {
    
     public static void printHello(){
-        System.debug('Hello Henrikuuu');
+        System.debug('Hello Aurel shef');
     }
 }
