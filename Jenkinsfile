@@ -11,7 +11,7 @@ pipeline {
     }
 
     stages {
-        stage('Deploy to Salesforce') {
+        stage('Connect to Salesforce') {
             steps {
                 script {
                     def deployResult = bat(
@@ -32,7 +32,10 @@ pipeline {
                 }
             }
         }
-         stage('Deploy to Salesforce22') {
+         stage('Deploy to Salesforce') {
+             when {
+                 branch 'PR-*'
+             }
             steps {
                 script {
                     def deployResult = bat(
