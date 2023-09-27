@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: trigger single Job
-      uses: henrikzhupani/z.henrik@calm-coders.com
+      uses: appleboy/jenkins-action@master
       with:
         url: "https://d203-95-107-217-244.ngrok-free.app/job/jenkinsSalesfoce/build?token=my-token"
         user: "henrikzhupani"
-        token: ${{ secrets.TOKEN }}
+        token: 113d4e2705b7afb93ccd4ebf5c036c82d8
         job: "jenkinsSalesfoce"
