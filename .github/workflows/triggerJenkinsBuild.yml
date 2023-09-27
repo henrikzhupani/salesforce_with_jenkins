@@ -1,0 +1,19 @@
+on:
+  pull_request:
+    branches:
+      - master
+    types: [created]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: trigger single Job
+      uses: henrikzhupani/z.henrik@calm-coders.com
+      with:
+        url: "https://d203-95-107-217-244.ngrok-free.app/job/jenkinsSalesfoce/build?token=my-token"
+        user: "henrikzhupani"
+        token: ${{ secrets.TOKEN }}
+        job: "jenkinsSalesfoce"
