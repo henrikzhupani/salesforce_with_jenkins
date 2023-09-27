@@ -2,16 +2,13 @@ on:
   pull_request:
     branches:
       - main
-    types: [created]
-
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
     - name: trigger single Job
-      uses: henrikzhupani/z.henrik@calm-coders.com
+      uses: henrikzhupani/salesforce_with_jenkins@main
       with:
         url: "https://d203-95-107-217-244.ngrok-free.app/"
         user: "henrikzhupani"
