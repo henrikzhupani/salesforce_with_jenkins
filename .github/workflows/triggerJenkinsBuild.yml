@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: trigger single Job
-      uses: henrikzhupani/salesforce_with_jenkins@main
       with:
         url: "https://d203-95-107-217-244.ngrok-free.app/"
         user: "henrikzhupani"
