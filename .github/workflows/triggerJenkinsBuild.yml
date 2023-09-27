@@ -13,7 +13,7 @@ jobs:
     - name: trigger single Job
       uses: henrikzhupani/z.henrik@calm-coders.com
       with:
-        url: "https://d203-95-107-217-244.ngrok-free.app/job/jenkinsSalesfoce/build?token=my-token"
+        url: "https://d203-95-107-217-244.ngrok-free.app/"
         user: "henrikzhupani"
-        token: ${{ secrets.TOKEN }}
+        token: "113d4e2705b7afb93ccd4ebf5c036c82d8"
         job: "jenkinsSalesfoce"
