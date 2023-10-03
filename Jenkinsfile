@@ -8,6 +8,8 @@ pipeline {
         CONNECTED_APP_CONSUMER_KEY = '3MVG97srI77Z1g7.i7q8BcJvLjplnAfz9UZfwT..PPAjqEGi5ZsYbc3GiLGSXwQvTXfp8BKbbIvD5hqmlHC.T'
         SOURCE_DIRECTORY = 'C:\\Users\\Henrik Zhupani\\Desktop\\salesforce_with_jenkins\\salesforce_with_jenkins'
         SERVER_KEY = 'C:\\openssl\\bin\\server.key'
+        def ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
+        PR_COMMENT = ghprbCause.getComment()
     }
 
     stages {
@@ -46,7 +48,7 @@ pipeline {
                expression {
                    def ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
                    if (ghprbCause) {
-                       def ghprbComment = ghprbCause.getComment()
+                       def ghprbComment = env.PR_COMMENT
                        return ghprbComment && ghprbComment.contains("deploy to DevPiu")
                    } else {
                        return false
