@@ -45,9 +45,11 @@ pipeline {
             when {
                 expression {
                     // Check if the PR comment contains "deploy to DevPiu"
-                    PR_COMMENT && PR_COMMENT.contains("deploy to DevPiu")
-                    }
+                    currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
+                    def ghprbComment = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause).getComment()
+                    ghprbComment && ghprbComment.contains("deploy to DevPiu")
                 }
+            }
             steps {
                 script {
                     def deployResult = bat(
