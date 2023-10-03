@@ -49,8 +49,10 @@ pipeline {
                    def ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
                    if (ghprbCause) {
                        def ghprbComment = env.PR_COMMENT
+                       println "PR Comment: ${ghprbComment}"
                        return ghprbComment && ghprbComment.contains("deploy to DevPiu")
                    } else {
+                        println "No GitHub Pull Request Cause found."
                        return false
                    }
                }
