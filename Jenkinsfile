@@ -43,13 +43,16 @@ pipeline {
         
          stage('Deploy to Salesforce') {
             when {
-                expression {
-                    // Check if the PR comment contains "deploy to DevPiu"
-                    currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
-                    def ghprbComment = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause).getComment()
-                    ghprbComment && ghprbComment.contains("deploy to DevPiu")
-                }
-            }
+               expression {
+                   def ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
+                   if (ghprbCause) {
+                       def ghprbComment = ghprbCause.getComment()
+                       return ghprbComment && ghprbComment.contains("deploy to DevPiu")
+                   } else {
+                       return false
+                   }
+               }
+           }
             steps {
                 script {
                     def deployResult = bat(
