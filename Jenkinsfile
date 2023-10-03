@@ -37,7 +37,7 @@ pipeline {
                 script {
                     def ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
                    if (ghprbCause) {
-                       def ghprbComment = env.PR_COMMENT
+                       def ghprbComment = ghprbCause.getComment()
                        println "PR Comment: ${ghprbComment}"
                        return ghprbComment && ghprbComment.contains("deploy to DevPiu")
                    } else {
@@ -53,7 +53,7 @@ pipeline {
                expression {
                    def ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
                    if (ghprbCause) {
-                       def ghprbComment = env.PR_COMMENT
+                      def ghprbComment = ghprbCause.getComment()
                        println "PR Comment: ${ghprbComment}"
                        return ghprbComment && ghprbComment.contains("deploy to DevPiu")
                    } else {
