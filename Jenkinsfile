@@ -32,6 +32,26 @@ pipeline {
                 }
             }
         }
+        stage('Retrieve PR Comment') {
+            steps {
+                script {
+                    def prNumber = currentBuild.rawBuild.getCauses()[0].getNumber()
+                    def githubApiUrl = "https://api.github.com/repos/henrikzhupani/salesforce_with_jenkins/issues/${prNumber}/comments"
+        
+                    def response = httpRequest(
+                        url: githubApiUrl,
+                        httpMode: 'GET',
+                        authentication: '396818' // Replace with the ID of your GitHub credentials in Jenkins
+                    )
+        
+                    if (response.status == 200) {
+                        PR_COMMENT = response.content
+                    } else {
+                        error("Failed to retrieve PR comment from GitHub API.")
+                    }
+                }
+            }
+        }
 
         stage('Check PR Comment') {
             steps {
