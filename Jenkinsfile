@@ -52,7 +52,6 @@ pipeline {
                     PR_COMMENT.contains("deploy to DevPiu")
                     }
                 }
-            }
             steps {
                 script {
                     def deployResult = bat(
