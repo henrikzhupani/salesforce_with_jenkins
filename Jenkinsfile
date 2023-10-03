@@ -8,7 +8,6 @@ pipeline {
         CONNECTED_APP_CONSUMER_KEY = '3MVG97srI77Z1g7.i7q8BcJvLjplnAfz9UZfwT..PPAjqEGi5ZsYbc3GiLGSXwQvTXfp8BKbbIvD5hqmlHC.T'
         SOURCE_DIRECTORY = 'C:\\Users\\Henrik Zhupani\\Desktop\\salesforce_with_jenkins\\salesforce_with_jenkins'
         SERVER_KEY = 'C:\\openssl\\bin\\server.key'
-        PR_COMMENT = ''
     }
 
     stages {
@@ -37,12 +36,8 @@ pipeline {
         stage('Check PR Comment') {
             steps {
                 script {
-                    // Get the PR comment from the environment variable
-                    def causes = currentBuild.rawBuild.getCauses()
-                    def ghprbCause = causes.find { it instanceof org.jenkinsci.plugins.ghprb.GhprbCause }
-                    if (ghprbCause) {
-                        PR_COMMENT = ghprbCause.getComment()
-                    }
+                    // Get the PR comment from the environment
+                    PR_COMMENT = env.PR_COMMENT ?: ''
                 }
             }
         }
