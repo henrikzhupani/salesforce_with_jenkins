@@ -8,8 +8,6 @@ pipeline {
         CONNECTED_APP_CONSUMER_KEY = '3MVG97srI77Z1g7.i7q8BcJvLjplnAfz9UZfwT..PPAjqEGi5ZsYbc3GiLGSXwQvTXfp8BKbbIvD5hqmlHC.T'
         SOURCE_DIRECTORY = 'C:\\Users\\Henrik Zhupani\\Desktop\\salesforce_with_jenkins\\salesforce_with_jenkins'
         SERVER_KEY = 'C:\\openssl\\bin\\server.key'
-        ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
-        PR_COMMENT = ghprbCause.getComment()
     }
 
     stages {
@@ -37,8 +35,15 @@ pipeline {
         stage('Check PR Comment') {
             steps {
                 script {
-                    // Get the PR comment from the environment
-                    PR_COMMENT = env.PR_COMMENT ?: ''
+                    def ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
+                   if (ghprbCause) {
+                       def ghprbComment = env.PR_COMMENT
+                       println "PR Comment: ${ghprbComment}"
+                       return ghprbComment && ghprbComment.contains("deploy to DevPiu")
+                   } else {
+                        println "No GitHub Pull Request Cause found."
+                       return false
+                   }
                 }
             }
         }
