@@ -35,26 +35,35 @@ pipeline {
         stage('Check PR Comment') {
             steps {
                 script {
-                    // Get the PR comment from the environment
-                    PR_COMMENT = env.PR_COMMENT ?: ''
+                    def ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
+                   if (ghprbCause) {
+                       def ghprbComment = ghprbCause.getComment()
+                       println "PR Comment: ${ghprbComment}"
+                       return ghprbComment && ghprbComment.contains("deploy to DevPiu")
+                   } else {
+                        println "No GitHub Pull Request Cause found."
+                       return false
+                   }
                 }
             }
         }
         
          stage('Deploy to Salesforce') {
-           when {
-                expression {
-                    def ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
-                    if (ghprbCause) {
-                        def ghprbComment = ghprbCause.getComment()
-                        println "PR Comment: ${ghprbComment}"
-                        return ghprbComment && ghprbComment.contains("deploy to DevPiu")
-                    } else {
+            when {
+               expression {
+                   def ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
+                   if (ghprbCause) {
+                      def ghprbComment = ghprbCause.getComment()
+                       println "PR Comment: ${ghprbComment}"
+                       return ghprbComment && ghprbComment.contains("deploy to DevPiu")
+                   } else {
                         println "No GitHub Pull Request Cause found."
-                        return false
-                    }
-                }
-            }
+                       return false
+                   }
+               }
+           }
+
+
             steps {
                 script {
                     def deployResult = bat(
