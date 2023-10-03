@@ -32,10 +32,22 @@ pipeline {
                 }
             }
         }
+        stage('Check PR Comment') {
+            steps {
+                script {
+                    // Get the PR comment from the environment
+                    PR_COMMENT = env.PR_COMMENT ?: ''
+                }
+            }
+        }
+        
          stage('Deploy to Salesforce') {
-             when {
-                 branch 'PR-*'
-             }
+            when {
+                expression {
+                    // Check if the PR comment contains "deploy to DevPiu"
+                    PR_COMMENT && PR_COMMENT.contains("deploy to DevPiu")
+                    }
+                }
             steps {
                 script {
                     def deployResult = bat(
