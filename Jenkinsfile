@@ -53,6 +53,7 @@ pipeline {
                    }
                }
            }
+
             steps {
                 script {
                     def deployResult = bat(
