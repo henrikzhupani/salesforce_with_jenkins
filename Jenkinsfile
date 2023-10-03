@@ -8,6 +8,7 @@ pipeline {
         CONNECTED_APP_CONSUMER_KEY = '3MVG97srI77Z1g7.i7q8BcJvLjplnAfz9UZfwT..PPAjqEGi5ZsYbc3GiLGSXwQvTXfp8BKbbIvD5hqmlHC.T'
         SOURCE_DIRECTORY = 'C:\\Users\\Henrik Zhupani\\Desktop\\salesforce_with_jenkins\\salesforce_with_jenkins'
         SERVER_KEY = 'C:\\openssl\\bin\\server.key'
+        PR_COMMENT = ''
     }
 
     stages {
@@ -32,11 +33,23 @@ pipeline {
                 }
             }
         }
+
+        stage('Check PR Comment') {
+            steps {
+                script {
+                    // Get the PR comment from the environment variable
+                    PR_COMMENT = currentBuild.rawBuild.actions.find { it instanceof hudson.model.CauseAction }
+                        .causes.find { it instanceof org.jenkinsci.plugins.ghprb.GhprbCause }
+                        .getComment()
+                }
+            }
+        }
+        
          stage('Deploy to Salesforce') {
             when {
                 expression {
                     // Check if the PR comment contains "deploy to DevPiu"
-                    currentBuild.rawBuild.getChangeSets().each { changeSet -> changeSet.getMsg().contains("deploy to DevPiu")
+                    PR_COMMENT.contains("deploy to DevPiu")
                     }
                 }
             }
