@@ -33,9 +33,13 @@ pipeline {
             }
         }
          stage('Deploy to Salesforce') {
-             when {
-                 branch 'PR-*'
-             }
+            when {
+                expression {
+                    // Check if the PR comment contains "deploy to DevPiu"
+                    currentBuild.rawBuild.getChangeSets().each { changeSet -> changeSet.getMsg().contains("deploy to DevPiu")
+                    }
+                }
+            }
             steps {
                 script {
                     def deployResult = bat(
