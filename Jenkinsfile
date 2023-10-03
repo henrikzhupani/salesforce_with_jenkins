@@ -38,9 +38,10 @@ pipeline {
             steps {
                 script {
                     // Get the PR comment from the environment variable
-                    PR_COMMENT = currentBuild.rawBuild.actions.find { it instanceof hudson.model.CauseAction }
-                        .causes.find { it instanceof org.jenkinsci.plugins.ghprb.GhprbCause }
-                        .getComment()
+                    def buildCauses = currentBuild.rawBuild.getBuildCauses(org.jenkinsci.plugins.ghprb.GhprbCause)
+                    if (buildCauses.size() > 0) {
+                        PR_COMMENT = buildCauses[0].getComment()
+                    }
                 }
             }
         }
@@ -49,7 +50,7 @@ pipeline {
             when {
                 expression {
                     // Check if the PR comment contains "deploy to DevPiu"
-                    PR_COMMENT.contains("deploy to DevPiu")
+                    PR_COMMENT && PR_COMMENT.contains("deploy to DevPiu")
                     }
                 }
             steps {
