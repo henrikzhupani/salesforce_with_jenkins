@@ -42,12 +42,19 @@ pipeline {
         }
         
          stage('Deploy to Salesforce') {
-            when {
+           when {
                 expression {
-                    // Check if the PR comment contains "deploy to DevPiu"
-                    PR_COMMENT && PR_COMMENT.contains("deploy to DevPiu")
+                    def ghprbCause = currentBuild.rawBuild.getCause(org.jenkinsci.plugins.ghprb.GhprbCause)
+                    if (ghprbCause) {
+                        def ghprbComment = ghprbCause.getComment()
+                        println "PR Comment: ${ghprbComment}"
+                        return ghprbComment && ghprbComment.contains("deploy to DevPiu")
+                    } else {
+                        println "No GitHub Pull Request Cause found."
+                        return false
                     }
                 }
+            }
             steps {
                 script {
                     def deployResult = bat(
