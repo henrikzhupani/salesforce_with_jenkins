@@ -38,9 +38,10 @@ pipeline {
             steps {
                 script {
                     // Get the PR comment from the environment variable
-                    def buildCauses = currentBuild.rawBuild.getBuildCauses(org.jenkinsci.plugins.ghprb.GhprbCause)
-                    if (buildCauses.size() > 0) {
-                        PR_COMMENT = buildCauses[0].getComment()
+                    def causes = currentBuild.rawBuild.getCauses()
+                    def ghprbCause = causes.find { it instanceof org.jenkinsci.plugins.ghprb.GhprbCause }
+                    if (ghprbCause) {
+                        PR_COMMENT = ghprbCause.getComment()
                     }
                 }
             }
